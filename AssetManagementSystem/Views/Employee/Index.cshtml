@@ -1,0 +1,115 @@
+﻿@model IEnumerable<AssetManagementSystem.Models.Employee>
+
+<p>
+       @*<input type="button" value="Create" id="addNew" class="buttonStyle" />*@
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/sites.css" rel="stylesheet" />
+@*<script src="~/script/Assignee.js"></script>
+<script src="~/script/jquery-1.3.2.js"></script>
+<script src="~/script/jquery.validate.js"></script>*@
+<div class="empinfo">
+    <h1 style="margin-left: 500px;margin-top: 30px; font-size: 20px !important;">Employee</h1>
+    <h2 class="empmain">
+        <p align="center"><b>Employee</b></p></h2>
+        <input type="button" class="button-css"  id="btnAddNew" value="Add New"  onclick="location.href='@Url.Action("Create", "Employee")';return false;" />
+        <input type="button" class="button-css" id="btnBack" value="Back" onclick="location.href='@Url.Action("Index", "Home", new { area = ""})';return false;"/>
+        <label class="search">
+            Search :<input type="text" id="myInput"  onkeyup="myFunction()" style="font-size:15px;" placeholder="Search Employee By Id" title="Type in a name">
+        </label>
+    </div>
+
+    <table class="table" id="tblEmployee">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.srNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.empId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.empName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cubicalNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contactNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.emailId)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            using (Html.BeginForm("Delete", "Employee", new { srNo = item.srNo }))
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.srNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.empId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.empName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cubicalNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.contactNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.emailId)
+                </td>
+                <td>
+                    @*<input type="button" value="Assign" id="btnAssign" class="button-css" />*@
+                    @*<button onclick="location.href='@Url.Action("Assign", "Employee",new {  srNo=item.srNo })';return false;" class="button-css">Assign</button>*@
+                    <button onclick="location.href='@Url.Action("Assign", "Employee", new { srNo = item.srNo })';return false;" class="button-css">Assign</button>
+                    <input type="button" value="View" id="btnView" class="button-css" />
+                    @*<input type="button" value="Assignee Update" id="btnAssigneeUpdate" class="buttonStyle" />*@
+                    <button onclick="location.href='@Url.Action("Edit", "Employee", new { srNo = item.srNo })';return false;" class="button-css">Assignee Update</button>
+                    <button onclick="return confirm('Do you want to delete this record')" class="button-css">Delete</button>
+                    @*<input type="button" value="Delete" id="btnDelete" class="buttonStyle" />*@
+
+                    @*@Html.ActionLink("Edit","Edit","","button")*@
+                    @*@Html.ActionLink("Edit", "Edit", new {  srNo=item.srNo }) |*@
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @*@Html.ActionLink("Delete", "Delete", new { srNo = item.srNo })*@
+                </td>
+            </tr>
+            }
+        }
+
+    </table>
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tblEmployee");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+
+    $(document).ready(function () {
+        if ('@TempData["IsDeleteMsg"]' != '') {
+            alert('@TempData["IsDeleteMsg"]');
+        }
+    });
+</script>

@@ -1,0 +1,176 @@
+﻿@model AssetManagementSystem.Models.Other
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Other</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.resourceId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resourceId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.assetCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.assetCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.assetName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.assetName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.shortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serialNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serialNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modelNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.softwareVersion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.softwareVersion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.softwareType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.softwareType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.licenceClass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.licenceClass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.licenceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.licenceNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.licenceKey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.licenceKey)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.warrantyPeriod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.warrantyPeriod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vendorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vendorContact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorContact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vendorEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isDeleted)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

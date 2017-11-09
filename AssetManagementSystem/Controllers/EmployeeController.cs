@@ -1,0 +1,160 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using AssetManagementSystem.DataAccessLayer;
+using AssetManagementSystem.Models;
+
+namespace AssetManagementSystem.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        // GET: Employee
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+        [HttpGet]
+        public ActionResult Assign(int srNo)
+        {
+            //DataAccessLayer.AssetService AssetService = new AssetService();
+            //List<Asset> objAssetList = new List<Asset>();
+            //objAssetList = AssetService.GetAssets();
+            TempData["srNo"] = srNo;
+            return View();
+        }
+
+        public ActionResult GetAssetList(int srNo)
+        {
+            TempData.Keep("srNo");  
+            DataAccessLayer.AssetService AssetService = new AssetService();
+            List<Asset> objAssetList = new List<Asset>();
+            objAssetList = AssetService.GetAssets();
+            return Json(objAssetList, JsonRequestBehavior.AllowGet);
+        }
+        
+
+        [HttpPost]
+        public JsonResult AssignStandaloneAsset(AssetEmployee assetEmployee) {
+            int result = 0;
+            AssetService assetservice = new AssetService();
+            EmployeeService employeeservice = new EmployeeService();
+            result = assetservice.AssetAllocation(assetEmployee.srNo, assetEmployee.assetId);
+            //      assetservice.AssetAllocation();
+            if (result > 0)
+            {
+                //  Send "false"
+                return Json(new { success = true, responseText = "Asset allocated successfully." }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                //  Send "Success"
+                return Json(new { success = false, responseText = "Error while allocation!!" }, JsonRequestBehavior.AllowGet);
+            }
+         //   return Json(new { success = false, responseText = "Your message successfuly sent!" }, JsonRequestBehavior.AllowGet);
+        }
+
+
+            public ActionResult Index()
+        {
+            
+                List<Employee> list = new List<Employee>();
+                EmployeeService employeeService = new EmployeeService();
+                list = employeeService.GetAllEmployee();
+            return View(list);
+        }
+        //Get method For Add Employee
+        [HttpGet]
+        public ActionResult Create()
+        {
+           // return new FilePathResult("C:\\Users\\Shubham Jolapara\\source\\repos\\Ams\\AssetManagementSystem\\AssetManagementSystem\\CMDB\\AssigneeDetails.html", "text/html");
+            return View();
+        }
+        //Post method For Add Employee
+        [HttpPost]
+        public ActionResult Create(Employee employee)
+        {
+            if(ModelState.IsValid == true)
+            {
+                EmployeeService employeeService = new EmployeeService();
+
+                //employee = employeeService.GetEmployeeBySrNo(employee.srNo);
+                if (!employeeService.CheckIfUserAlreadyExist(employee.empId))
+                {
+                    if (employeeService.AddEmployee(employee) > 0)
+                    {
+                        ViewBag.Msg = "Employee Added successfully";
+                        //return RedirectToAction("Index");
+                    }
+                    // return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.ErrorMsg1 = "Employee Id already exist";
+                }
+
+            }
+
+            return View(employee);
+        }
+        // GET: Student/Edit/5
+        [HttpGet]
+        public ActionResult Edit(int srNo)
+        {
+            
+                EmployeeService employeeService = new EmployeeService();
+                Employee employee = employeeService.GetEmployeeBySrNo(srNo);
+            
+            return View(employee);
+                
+        }
+
+        // POST: Student/Edit/5
+        [HttpPost]
+        public ActionResult Edit(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                EmployeeService employeeService = new EmployeeService();
+                int result = employeeService.EditEmployee(employee);
+                if ( result > 0)
+                {
+                    ViewBag.Msg = "Employee Updated successfully";
+                    
+                }
+                return RedirectToAction("Index");
+            }
+            return View(employee);
+
+        }
+
+        //public ActionResult Delete(int srNo)
+        //{
+        //    EmployeeService employeeService = new EmployeeService();
+        //    Employee employee = employeeService.GetEmployeeBySrNo(srNo);
+        //    return View(employee);
+        //}
+
+        // POST: Student/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int srNo)
+        {
+            EmployeeService employeeService = new EmployeeService();
+            int result = employeeService.DeleteEmployeeBySrNo(srNo);
+            if (result > 0)
+            {
+                TempData["IsDeleteMsg"] = "Deleted Successfully";
+            }
+
+            return RedirectToAction("Index");
+
+        
+        //EmployeeService employeeService = new EmployeeService();
+        //        // TODO: Add delete logic here
+        //        int result = employeeService.DeleteEmployeeBySrNo(srNo);
+        //        return View(result);
+            
+        }
+    }
+}

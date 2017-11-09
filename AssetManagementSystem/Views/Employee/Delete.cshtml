@@ -1,0 +1,66 @@
+﻿@model AssetManagementSystem.Models.Employee
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.srNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.srNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cubicalNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cubicalNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contactNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contactNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emailId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emailId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

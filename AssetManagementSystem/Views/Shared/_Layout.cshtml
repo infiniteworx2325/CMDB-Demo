@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-inverseCss {
+            background-color: #69aad8 !important;
+            border-color: #69aad8 !important;
+        }
+        .footer1 {
+
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            margin-bottom: 0px;
+        }
+        .leftDivAlign {
+            position: fixed;
+            left: 0px;
+            right: 0px;
+            height: 70px;
+            margin-bottom: 0px;
+        }
+        .dropbtn {
+            background-color: #2cc4d4;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #2cc4d4;
+            border: 1px;
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #2cc4d4;
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdownContent {
+            display: none;
+            position: absolute;
+            margin-top: -50px;
+            margin-left: 186px;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdownContent a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #2cc4d4;
+        }
+
+        .show {
+            display: block;
+        }
+        .button {
+            background-color: #2cc4d4;
+            border: 1px;
+            border-radius: 5px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        /*@@media screen and (min-width: 1024px) {
+    myNewDivHeight{
+        height:250px;
+    }*/
+    
+    </style>
+</head>
+<body style="overflow-y:scroll">
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-inverseCss">
+        <div id="logo">
+
+   
+</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="/"><img src="~/images/Logo.PNG" style="height:110px ;width:192px;margin-top: 6px;margin-left: -97px;margin-bottom: 7px;" /></a>
+                </div>
+               
+                <div style="margin-left: 169px;">
+                    <h1>
+                        <b>
+                            <font color="white">
+                                <center style="font-size:158%;">
+                                    Assets Management System
+                                </center>
+                            </font>
+                        </b>
+                    </h1>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+    <div class="row">
+
+
+        <div class="col-md-2 leftDivAlign" style="float:left;background-color:#e2eae7;height:100%;width:220px;margin-top:74px;">
+            <div class="dropdown">
+                <b><i><input type="button" style="width:182px;margin-top:105px" onclick="toggleDDl()" class="dropbtn" value="Assets Entries"></i></b> <br />
+                <div id="assetDDL" class="dropdownContent">
+
+                    @*<a href="Hardware.html">Hardware</a>*@
+                    @Html.ActionLink("Hardware", "Hardwares", "Hardware", new { Area = "Asset" }, null)                    
+                    @*<a href="Software.html">Software</a>*@
+                    @Html.ActionLink("Software", "Softwares", "Software", new { Area = "Asset" }, null)
+                    @Html.ActionLink("Other", "Others", "Other", new { Area = "Asset" }, null)
+                    @*<a href="Other.html">Other</a>*@
+                </div>
+            </div>
+
+            <b><i><input type="button" style="width:182px" class="button" value="Assets Allocation" onclick="location.href='@Url.Action("Index", "Employee", new { area = ""})';return false;"></i></b> <br />
+            <b><i><input type="button" style="width:182px" class="button" value="Assets List" onclick="location.href='/Home'"></i></b> <br />
+            <script>
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+            function toggleDDl() {
+                document.getElementById("assetDDL").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+
+                    var dropdowns = document.getElementsByClassName("dropdownContent");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+            </script>
+        </div>
+        
+        <div class="col-md-12 container body-content ">
+            @RenderBody()
+
+
+
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <footer style="width: 100%;" class="navbar-inverseCss footer1">
+            <h1>
+                <b>
+                    <font color="white">
+                        <center style="font-size:15px;">
+                            <p>&copy; @DateTime.Now.Year - InfiniteWorx Omnichannel Pvt Ltd.</p>
+                        </center>
+                    </font>
+                </b>
+            </h1>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

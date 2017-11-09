@@ -1,0 +1,128 @@
+﻿@model IEnumerable<AssetManagementSystem.Models.Hardware>
+
+@{
+    ViewBag.Title = "GetAsset";
+}
+
+<h2>GetAsset</h2>
+<link href="~/Content/sites.css" rel="stylesheet" />
+    
+
+   <span class="col-md-2" style="margin-top:20px;margin-left:10px;margin-bottom:5px"> @Html.ActionLink("Create New", "Create")</span>
+
+    <table class="table form-horizontal" style="margin-top:30px;margin-left:50px">
+            <tr>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.assetName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.shortName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.serialNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.modelNo)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.warrantyPeriod)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.vendorName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.vendorContact)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.vendorEmail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.createdDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.isActive)
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+            @foreach (var item in Model)
+                {
+                    using (Html.BeginForm("Delete", "Hardware", new { id = item.assetId, area = "Asset" }))
+                    {
+                    <tr>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.resourceId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.assetCode)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.assetName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.shortName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.serialNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.modelNo)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.warrantyPeriod)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.vendorName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.vendorContact)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.vendorEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.createdDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.isActive)
+                        </td>
+                        
+                        
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id=item.assetId }) 
+
+
+
+
+                        </td>
+                        <td>
+                            <input type="submit" value="Delete" onclick="return confirm('Do you want to delete this record')" />
+
+                        </td>
+                    </tr>
+            }
+        }
+
+        </table>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+
+         $(document).ready(function () {
+             if ('@TempData["IsDeleteMsg"]' != '')
+        {
+            alert('@TempData["IsDeleteMsg"]');
+        }
+
+    });
+    </script>

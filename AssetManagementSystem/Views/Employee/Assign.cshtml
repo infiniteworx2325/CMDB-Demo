@@ -1,0 +1,109 @@
+﻿@model AssetManagementSystem.Models.Hardware
+
+@{
+    ViewBag.Title = "GetAsset";
+}
+
+<h2>Hardware List</h2>
+
+
+<link href="~/Content/sites.css" rel="stylesheet" />
+<input type="radio" id="radioStandalone" name="radioGroup" class="button-css" value="Standalone" style="margin-top:25px;"  /> Standalone
+<input type="radio" id="radioConfiguration" name="radioGroup" class="button-css"  value="Configuration" style="margin-top:5px;"  /> Configuration
+
+<div id="assetList">
+    <div></div>
+</div>
+<div id="divSave" style="display:none">
+    <input type="button" value="Save" id="btnSave"/>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        //$('#divSave').css('display', 'none');
+        $('input[name="radioGroup"]').change(function () {
+           // console.log($('input[name="radioGroup"]').val()); 
+
+            $.ajax({
+                type: "GET",
+                url: '/Employee/GetAssetList',
+                async: true,
+                data: { srNo: @TempData["srNo"]},
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if ($('input[name="radioGroup"]:checked').val() == "Standalone") {
+                        console.log("radio created");
+                        for (i = 0; i < data.length; i++) {
+
+                            var radioBtn = $('<input type="radio" class="rbtnAsset" name="rbtnAsset" value=' + data[i].assetId + ' />' + data[i].assetName + '<br />');
+                            radioBtn.prependTo('#assetList');
+                            //console.log(";;;;;;;" + data[i].assetId);
+                            $('#divSave').show();
+                        }
+                    } else if ($('input[name="radioGroup"]:checked').val() == "Configuration"){
+                        console.log("checkbox created");
+                        
+                        var radioReplace = $(".rbtnAsset");
+                        radioReplace.replaceWith('<input type="checkbox" name="" />');
+                        $('input[type=radio][name=rbtnAsset]').remove();
+                        //var radioRemove = $(".rbtnAsset");
+                        //radioRemove.remove();
+
+                       
+                    }
+                   
+                    
+
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+
+
+        $('#btnSave').click(function () {
+            var assetId = $("input[name='rbtnAsset']:checked").val();
+            //alert($("input:radio[name='rbtnAsset']:checked").val());
+            var assetEmployee = {};
+            assetEmployee.assetId = $("input[name='rbtnAsset']:checked").val();
+            assetEmployee.srNo=@TempData["srNo"];
+            $.ajax({
+                type: "POST",
+                url: '/Employee/AssignStandaloneAsset',
+                async: true,
+                data: JSON.stringify(assetEmployee),
+                //data: { assetEmployee: assetEmployee},
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    alert(data.responseText)
+                    console.log("//" + data);
+                    window.location = "/Employee/Index";
+
+
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+
+
+
+
+        //$('#radioConfiguration').click(function () {
+        //    var radioReplace = $(".rbtnAsset");
+        //     radioReplace.replaceWith('<input type="checkbox" name="" />'); 
+        //    //radioRemove.remove();+ checkbox.attr('name') + '" value="' + checkbox.attr('value') + 
+        //});
+
+
+
+
+    });
+</script>

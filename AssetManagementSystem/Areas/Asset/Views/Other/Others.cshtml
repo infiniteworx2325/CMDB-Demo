@@ -1,0 +1,186 @@
+﻿@model IEnumerable<AssetManagementSystem.Models.Other>
+
+@{
+    ViewBag.Title = "Others";
+}
+
+<h2>Others</h2>
+
+<link href="~/Content/sites.css" rel="stylesheet" />
+<input type="button" class="button-css" id="btnAddNew" value="Add Other" onclick="location.href='@Url.Action("Create", "Other",new { area="Asset"})';return false;" />
+<input type="button" class="button-css" id="btnBack" value="Back" onclick="location.href='@Url.Action("Index", "Home",new { area=""})';return false;" />
+
+<input type="text"  id="searchInput" onkeyup="assetSearch()" placeholder="Search asset name" style="float:right;margin-top:25px;" />
+
+
+@*<span class="col-md-2" style="margin-top:20px;margin-left:10px;margin-bottom:5px"> @Html.ActionLink("Add Other", "Create")</span>*@
+
+<table class="table form-horizontal"  id="tblAsset">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.resourceId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.assetCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.assetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shortName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.serialNo)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.modelNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.softwareVersion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.softwareType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.licenceClass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.licenceNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.licenceKey)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.warrantyPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vendorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vendorContact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vendorEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.isActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isDeleted)
+        </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        using (Html.BeginForm("Delete", "Other", new { id = item.assetId, area = "Asset" }))
+        {
+        <tr>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.resourceId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.assetCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.assetName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.serialNo)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.modelNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.softwareVersion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.softwareType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.licenceClass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.licenceNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.licenceKey)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.warrantyPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vendorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vendorContact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vendorEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdDate)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.isActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isDeleted)
+            </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.assetId })*@ 
+                <input type="button" class="button-css"  id="btnEdit" value="Update" onclick="location.href='@Url.Action("Edit", "Other",new { id = item.assetId })';return false;" @*onclick="window.location.href='/Asset/Other/Edit/@item.assetId'"*@ />
+               
+            </td>
+            <td>
+                <input type="submit" class="button-css" value="Delete" onclick="return confirm('Do you want to delete this record')" />
+
+            </td>
+        </tr>
+        }
+    }
+
+</table>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script>
+
+         $(document).ready(function () {
+             if ('@TempData["IsDeleteMsg"]' != '')
+        {
+            alert('@TempData["IsDeleteMsg"]');
+        }
+
+            });
+
+
+            function assetSearch() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("searchInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("tblAsset");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[1];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+

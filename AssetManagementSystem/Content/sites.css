@@ -1,0 +1,60 @@
+﻿.button-css {
+    display: inline;
+    padding: 7px;
+    background: #EFEFEF;
+    text-align: center;
+    border-radius: 5px;
+    color: black;
+}
+
+.search {
+    float: right;
+}
+
+.emptext {
+    text-align: center;
+}
+
+.table {
+    width: auto;
+    margin-top: 30px;
+    margin-left: 160px;
+    margin-bottom: 20px;
+}
+
+.empmain {
+    margin-top: 30px;
+    margin-left: 126px;
+}
+
+.leftDivAlign {
+    position: fixed;
+    float: left;
+    background-color: #e2eae7;
+    height: 550px;
+    width: 220px;
+    margin-top: 74px;
+}
+
+.form-horizontal {
+    margin-left: 380px;
+    margin-top: 50px;
+}
+
+#btnAddNew {
+    margin-left: 125px;
+    margin-top: 22px;
+}
+
+#tblAsset {
+    margin-left: 130px;
+}
+
+.form-horizontal1 {
+    margin-top: 30px;
+    margin-left: 350px;
+}
+
+.form-horizontal2 {
+    margin-left: 130px;
+}
