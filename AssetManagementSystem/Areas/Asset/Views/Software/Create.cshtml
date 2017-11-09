@@ -206,14 +206,7 @@
             alert("Enter a number");
         }
     });
-    //Extras
-    $("#vendoct").keypress(function (e) {
-        if (String.fromCharCode(e.which).match(/[^0-9_ ]/)) {
-            e.preventDefault();
-            alert("Enter a number");
-        }
-    });
-    $("#warrantyPeriod").keypress(function (e) {
+        $("#warrantyPeriod").keypress(function (e) {
         if (String.fromCharCode(e.which).match(/[^0-9_ ]/)) {
             e.preventDefault();
             alert("warranty should be two digit");
