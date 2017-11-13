@@ -3,15 +3,21 @@
 @{
     ViewBag.Title = "Edit";
 }
-
-<h2>Edit</h2>
+<style>
+    @@media only screen and (max-width: 467px) {
+        .form-horizontal {
+            margin-top: 150px;
+            margin-left: 94px;
+        }
+    }
+</style>
 <link href="~/Content/sites.css" rel="stylesheet" />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Other</h4>
+        <h4 style="font-weight:bold;font-size:20px;">Update Other details</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.assetId)
@@ -27,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.assetCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.assetCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.assetCode, new { htmlAttributes = new { @class = "form-control", @maxlength = "30" } })
                 @Html.ValidationMessageFor(model => model.assetCode, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.assetName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.assetName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.assetName, new { htmlAttributes = new { @class = "form-control", @maxlength = "30" } })
                 @Html.ValidationMessageFor(model => model.assetName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.shortName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.shortName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.shortName, new { htmlAttributes = new { @class = "form-control", @maxlength = "20" } })
                 @Html.ValidationMessageFor(model => model.shortName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +57,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control", @maxlength = "256" } })
                 @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,7 +65,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.serialNo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.serialNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.serialNo, new { htmlAttributes = new { @class = "form-control", @maxlength = "30" } })
                 @Html.ValidationMessageFor(model => model.serialNo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -115,7 +121,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.warrantyPeriod, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.warrantyPeriod, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.warrantyPeriod, new { htmlAttributes = new { @class = "form-control",@min=0 } })
                 @Html.ValidationMessageFor(model => model.warrantyPeriod, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -123,7 +129,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.vendorName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.vendorName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.vendorName, new { htmlAttributes = new { @class = "form-control", @maxlength = "30" } })
                 @Html.ValidationMessageFor(model => model.vendorName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -131,7 +137,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.vendorContact, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.vendorContact, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.vendorContact, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
                 @Html.ValidationMessageFor(model => model.vendorContact, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -139,7 +145,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.vendorEmail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.vendorEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.vendorEmail, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
                 @Html.ValidationMessageFor(model => model.vendorEmail, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -174,7 +180,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save"class="button-css"  />
+                <input type="submit" value="Update"class="button-css"  />
                 <span style="margin-left:5px">
                     <input type="button" class="button-css" id="btnBack" value="Back" style="margin-top:5px;" onclick="location.href='@Url.Action("Others", "Other",new { area="Asset"})';return false;" />
 
@@ -187,3 +193,57 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        if ('@ViewBag.Msg' != "")
+        {
+
+           alert('@ViewBag.Msg');
+
+           $('#assetCode').val("");
+           $('#assetName').val("");
+           $('#shortName').val("");
+            $('#contactNo').val("");
+            $('#emailId').val("");
+            location.href = "@Url.Action("Others","Other",new { area="Asset"})";
+        }
+
+
+    });
+
+ $("#assetCode,#assetName,#modelNo").keypress(function (e) {
+        if (String.fromCharCode(e.which).match(/[^a-zA-Z0-9_ ]/)) {
+            e.preventDefault();
+            alert("Enter alphanumeric only");
+        }
+    });
+    $("#vendorName ").keypress(function (e) {
+        if (String.fromCharCode(e.which).match(/[^a-zA-Z_ ]/)) {
+            e.preventDefault();
+            alert("Enter alphabets only");
+        }
+    });
+    //$("#vendorName").keypress(function (e) {
+    //    if (String.fromCharCode(e.which).match(/[^a-zA-Z_ ]/)) {
+    //        e.preventDefault();
+    //        alert("Enter a valid Asset Name");
+    //    }
+    //});
+    $("#vendorContact").keypress(function (e) {
+        if (String.fromCharCode(e.which).match(/[^0-9_ ]/)) {
+            e.preventDefault();
+            alert("Enter a number");
+        }
+    });
+    $("#warrantyPeriod").keypress(function (e) {
+        if (String.fromCharCode(e.which).match(/[^0-9_ ]/)) {
+            e.preventDefault();
+            alert("warranty should be upto two digits");
+        }
+    });
+
+
+</script>

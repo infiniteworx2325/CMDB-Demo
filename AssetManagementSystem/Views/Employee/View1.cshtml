@@ -1,0 +1,60 @@
+﻿@model AssetManagementSystem.Models.Employee
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.srNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.srNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cubicalNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cubicalNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contactNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contactNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emailId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emailId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -76,7 +76,8 @@ namespace AssetManagementSystem.Areas.Asset.Controllers
                     int res = assetService.UpdateHardware(hardware);
                     if (res > 0)
                     {
-                        return RedirectToAction("Hardwares");
+                        ViewBag.Msg = "Data Updated successfully....";
+                        //return RedirectToAction("Hardwares");
                     }
 
                     return View(hardware);

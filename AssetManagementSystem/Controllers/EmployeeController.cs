@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AssetManagementSystem.DataAccessLayer;
 using AssetManagementSystem.Models;
+using System.Collections;
 
 namespace AssetManagementSystem.Controllers
 {
@@ -33,7 +34,101 @@ namespace AssetManagementSystem.Controllers
             objAssetList = AssetService.GetAssets();
             return Json(objAssetList, JsonRequestBehavior.AllowGet);
         }
-        
+        //public ActionResult GetListForConfig(int srNo)
+        //{
+        //    TempData.Keep("srNo");
+        //    DataAccessLayer.AssetService AssetService = new AssetService();
+        //    List<Asset> objAssetList = new List<Asset>();
+        //    objAssetList = AssetService.GetHardwareSoftwareListForConfig();
+        //    return Json(objAssetList, JsonRequestBehavior.AllowGet);
+        //}
+
+        //[HttpPost]
+        //public int generateConfigurationGroupId()
+        //{
+        //    int result = 0;
+        //}
+
+        [HttpPost]
+        public JsonResult DeallocateAsset(assetDeallocation assetDeallocation)
+        {
+            AssetService assetService = new AssetService();
+            int result = assetService.deleteDeallocatedAssets(assetDeallocation);
+            if (result > 0)
+            {
+                return Json(new { success = true, responseText = "Assets Deallocated successfully." }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                return Json(new { success = false, responseText = "Error while getting allocated assets!!" }, JsonRequestBehavior.AllowGet);
+
+            }
+            return null;
+        }
+
+
+        [HttpGet]
+        public JsonResult GetAllocatedAssetsList(int srNo)
+        {
+            DataAccessLayer.AssetService AssetService = new AssetService();
+            List<AllocatedAsstesViewModel> listAllocatedAsstesViewModel = new List<AllocatedAsstesViewModel>();
+
+            listAllocatedAsstesViewModel = AssetService.GetAllocatedAssets(srNo);
+            if (listAllocatedAsstesViewModel.Count > 0)
+            {
+                Json(listAllocatedAsstesViewModel, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false, responseText = "Error while getting allocated assets!!" }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            return Json(listAllocatedAsstesViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult AssignConfiuredAsset(ConfiguredAssetEmployee configuredAssetEmployee)
+        {
+            int result = 0;
+            string configurationGroupNameId = string.Empty;
+            AssetService assetservice = new AssetService();
+            EmployeeService employeeService = new EmployeeService();
+            int configResult = 0;
+            int configAssetAllocation = 0;
+            result = assetservice.ConfiguredAssetAllocation(configuredAssetEmployee);
+
+            if (result > 0)
+            {
+                configurationGroupNameId = assetservice.ConfigurationGroupNameId();
+            }
+            if (configurationGroupNameId != string.Empty || configurationGroupNameId != null)
+            {
+                configResult = assetservice.CreateConfiguration(configurationGroupNameId, configuredAssetEmployee.selectedAssets);
+            }
+            if (configResult > 0)
+            {
+                for (int i = 0; i < configuredAssetEmployee.selectedAssets.Count; i++)
+                {
+                    configAssetAllocation = assetservice.AssetAllocation(configuredAssetEmployee.srNo, configuredAssetEmployee.selectedAssets[i]);
+                }
+            }
+            if (configAssetAllocation > 0 && result > 0 && configResult > 0)
+            {
+                return Json(new { success = true, responseText = "Configured Assets allocated successfully." }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                return Json(new { success = false, responseText = "Error while configured allocation!!" }, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+        }
 
         [HttpPost]
         public JsonResult AssignStandaloneAsset(AssetEmployee assetEmployee) {
@@ -110,6 +205,21 @@ namespace AssetManagementSystem.Controllers
                 
         }
 
+        [HttpGet]
+        public ActionResult View(int srNo)
+        {
+
+            EmployeeService employeeService = new EmployeeService();
+            EmployeeView employeeView = new EmployeeView();
+
+            employeeView.employee = employeeService.GetEmployeeBySrNo(srNo);
+
+             AssetService assetService = new AssetService();
+            employeeView.assetList = assetService.GetAllocatedAssets(srNo);
+            return View(employeeView);
+
+        }
+
         // POST: Student/Edit/5
         [HttpPost]
         public ActionResult Edit(Employee employee)
@@ -117,11 +227,10 @@ namespace AssetManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 EmployeeService employeeService = new EmployeeService();
-                int result = employeeService.EditEmployee(employee);
-                if ( result > 0)
+                //  int result = employeeService.EditEmployee(employee);
+                if (employeeService.EditEmployee(employee) > 0)
                 {
                     ViewBag.Msg = "Employee Updated successfully";
-                    
                 }
                 return RedirectToAction("Index");
             }

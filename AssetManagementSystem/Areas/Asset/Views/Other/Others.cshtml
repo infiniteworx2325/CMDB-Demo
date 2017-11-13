@@ -4,16 +4,54 @@
     ViewBag.Title = "Others";
 }
 
-<h2>Others</h2>
+@*<h2 style="margin-top: 103px;"> <p align="center">Others List</p></h2>*@
+<style>
+    @@media only screen and (max-width: 467px) {
+        .form-horizontal {
+            margin-top: 150px;
+            margin-left: 45px !important;
+        }
+        /*@@media only screen and (min-width: 1024px) {
+    .floatForsearch {
+      float:none !important;
+    }*/
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .floatForsearch {
+            float: none !important;
+        }
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .form-horizontal {
+            margin-top: 13px;
+            margin-left: 45px !important;
+        }
+    }
+</style>
 
 <link href="~/Content/sites.css" rel="stylesheet" />
-<input type="button" class="button-css" id="btnAddNew" value="Add Other" onclick="location.href='@Url.Action("Create", "Other",new { area="Asset"})';return false;" />
+@*<input type="button" class="button-css" id="btnAddNew" value="Add Other" onclick="location.href='@Url.Action("Create", "Other",new { area="Asset"})';return false;" />
 <input type="button" class="button-css" id="btnBack" value="Back" onclick="location.href='@Url.Action("Index", "Home",new { area=""})';return false;" />
 
-<input type="text"  id="searchInput" onkeyup="assetSearch()" placeholder="Search asset name" style="float:right;margin-top:25px;" />
+<input type="text"  id="searchInput" onkeyup="assetSearch()" placeholder="Search asset name" style="float:right;margin-top:25px;" />*@
 
 
 @*<span class="col-md-2" style="margin-top:20px;margin-left:10px;margin-bottom:5px"> @Html.ActionLink("Add Other", "Create")</span>*@
+<div class="form-horizontal">
+    <h4 style="font-weight:bold;font-size:20px;">Other List</h4>
+    <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
+        <input type="button" class="button-css" id="btnAddNew" value="Add Other" onclick="location.href='@Url.Action("Create", "Other",new { area="Asset"})';return false;" />
+        <input type="button" class="button-css" id="btnBack" value="Back" onclick="location.href='@Url.Action("Index", "Home",new { area=""})';return false;" />
+
+    </div>
+    @*<input type="button" class="button-css" id="btnAddNew" value="Add Hardware" onclick="location.href='@Url.Action("Create", "Hardware",new { area="Asset"})';return false;" />*@
+    @*<input type="button" class="button-css" id="btnBack" value="Back" onclick="location.href='@Url.Action("Index", "Home",new { area=""})';return false;" />*@
+    <input type="text" class="col-xs-12 col-sm-12 floatForsearch " id="searchInput" onkeyup="assetSearch()" placeholder="Search asset name" style="float: right;margin-top:25px;" />
+
+
+</div>
 
 <table class="table form-horizontal"  id="tblAsset">
     <tr>

@@ -3,30 +3,135 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title  AMS</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
-        .navbar-inverseCss {
-            background-color: #69aad8 !important;
-            border-color: #69aad8 !important;
+        .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: white;
+}
+        .navbar-inverse .navbar-nav > li > a {
+    color: white !important;
+}
+        .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    
+    background-color: #2cc4d4;
+}
+        .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:  #69aad8;
+    color: white;
+    text-align: center;
+    height:8%;
+    /*z-index:5;*/
+}
+                .top {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color:  #69aad8;
+    color: white;
+    text-align: center;
+    height:8%;
+    /*z-index:5;*/
+}
+               .sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+        .background-color {
+          background-color:              #69aad8 !important
         }
-        .footer1 {
+        .leftDiv-background-color {
+          background-color:              #e2eae7 !important;
+          border-color: #e2eae7 !important;
+        }
+        .navbar-fixed-left {
+  width: 140px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+  background-color:#e2eae7;
+}
 
-            position: fixed;
-            bottom: 0px;
-            left: 0px;
-            right: 0px;
-            height: 50px;
-            margin-bottom: 0px;
-        }
-        .leftDivAlign {
-            position: fixed;
-            left: 0px;
-            right: 0px;
-            height: 70px;
-            margin-bottom: 0px;
-        }
+.navbar-fixed-left .navbar-nav > li {
+  float: none;  /* Cancel default li float: left */
+  width: 139px;
+}
+
+.navbar-fixed-left + .container {
+  padding-left: 160px;
+}
+
+/* On using dropdown menu (To right shift popuped) */
+.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+  margin-top: -50px;
+  margin-left: 140px;
+}
+@@media only screen and (max-width: 991px) {
+    .my {
+        padding-left: 0 !important;
+    }
+}
+@@media only screen and (min-width: 992px) {
+    .my {
+        padding-left: 168px;
+    }
+}
+
+
+/*@@media only screen and (max-width: 991px) {
+    #toogleBtn {
+     display:block;  
+    }
+}
+@@media only screen and (min-width: 992px) {
+    #toogleBtn {
+        display:none;
+    }
+}*/
+@@media only screen and (max-width: 991px) {
+    .margin-left {
+         margin-left: 123px!important;  
+    }
+}
+@@media only screen and (max-width: 320px) {
+    .margin-left {
+         margin-left: 130px!important
+    }
+}
+@@media only screen and (max-width: 768px) {
+    .displayNoneLeftDiv {
+padding:0px !important;
+
+    }
+}
+@@media (min-width: 768px) and (max-width: 991px) {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
+    }
+}
         .dropbtn {
             background-color: #2cc4d4;
             color: white;
@@ -78,6 +183,7 @@
         .show {
             display: block;
         }
+
         .button {
             background-color: #2cc4d4;
             border: 1px;
@@ -91,105 +197,183 @@
             margin: 4px 2px;
             cursor: pointer;
         }
-        /*@@media screen and (min-width: 1024px) {
-    myNewDivHeight{
-        height:250px;
-    }*/
-    
+ /*.dropbtn {
+            background-color: #2cc4d4;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #2cc4d4;
+            border: 1px;
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+        }*/
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #2cc4d4;
+            }
+
     </style>
 </head>
-<body style="overflow-y:scroll">
-    <div class="navbar navbar-inverse navbar-fixed-top navbar-inverseCss">
-        <div id="logo">
-
-   
-</div>
+<body>
+    <!--header -->
+    <div class="navbar navbar-inverse navbar-fixed-top hidden-sm` hidden-xs background-color" style="border-color: #2cc4d4;">
         <div class="container">
-            <div class="row">
-                <div class="col-md-1">
-                    <a href="/"><img src="~/images/Logo.PNG" style="height:110px ;width:192px;margin-top: 6px;margin-left: -97px;margin-bottom: 7px;" /></a>
-                </div>
-               
-                <div style="margin-left: 169px;">
-                    <h1>
-                        <b>
-                            <font color="white">
-                                <center style="font-size:158%;">
-                                    Assets Management System
-                                </center>
-                            </font>
-                        </b>
-                    </h1>
-                </div>
+            <div class="navbar-header ">
+                <img src="~/images/Logo.PNG" style="width: 10%;margin-top: 2px;" />
+            </div>
+            <div class="navbar-header " style="margin-left: 324px;margin-top: -61px;color: white;">
+                <h1>
+                    Assets Management System
+                </h1>
             </div>
             
+           
+                @*<div class="navbar-header">
+                    <center>
+                        Assets Management System
+                    </center>
+                </div>*@
+                
+                
+                
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
             
         </div>
+    <div class="navbar navbar-inverse navbar-fixed-top hidden-lg hidden-md background-color" >
+        <div class="container">
+            <div class="navbar-header ">
+                <img src="~/images/Logo.PNG" class="hidden-lg hidden-md" style="width: 10%;margin-top: 2px;" />
+            </div>
+            <div class="navbar-header margin-left " style="margin-left: 28px;margin-top: -47px;color: white;">
+                <h1>
+                    Assets Management System
+                </h1>
+            </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" style="color:white">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Assets Entries
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Hardwares","Hardware",new { area="Asset"})">Hardware</a></li>
+                            <li><a href="@Url.Action("Softwares","Software",new { area="Asset"})">Software</a></li>
+                            <li><a href="@Url.Action("Others","Other",new { area="Asset"})">Other</a></li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Asset Allocation", "Index", "Employee", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Asset List", "AssetSearch", "SearchAsset",new { area=""},null)</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="row">
-
-
-        <div class="col-md-2 leftDivAlign" style="float:left;background-color:#e2eae7;height:100%;width:220px;margin-top:74px;">
+    <div class="navbar navbar-inverse navbar-fixed-left visible-lg visible-md leftDiv-background-color displayNoneLeftDiv" style="width: 219px">
+        <div class="container">
+            @*<div style="margin-top:25px"> 
+                <ul class="nav nav-pills nav-tabs" >
+                    <li style="width:100%;background-color:#2cc4d4!important" class="active"><a href="#">Home</a></li>
+                    <li style="width:100%"><a href="#">Menu 1</a></li>
+                    <li style="width:100%"><a href="#">Menu 2</a></li>
+                    <li style="width:100%"><a href="#">Menu 3</a></li>
+                </ul>
+            </div>*@
             <div class="dropdown">
-                <b><i><input type="button" style="width:182px;margin-top:105px" onclick="toggleDDl()" class="dropbtn" value="Assets Entries"></i></b> <br />
+                <b><i><input type="button" style="width:182px;margin-top: 12px;" onclick="toggleDDl()" class="dropbtn" value="Assets Entries"></i></b> <br />
                 <div id="assetDDL" class="dropdownContent">
 
-                    @*<a href="Hardware.html">Hardware</a>*@
-                    @Html.ActionLink("Hardware", "Hardwares", "Hardware", new { Area = "Asset" }, null)                    
-                    @*<a href="Software.html">Software</a>*@
+                    @Html.ActionLink("Hardware", "Hardwares", "Hardware", new { Area = "Asset" }, null)
                     @Html.ActionLink("Software", "Softwares", "Software", new { Area = "Asset" }, null)
                     @Html.ActionLink("Other", "Others", "Other", new { Area = "Asset" }, null)
-                    @*<a href="Other.html">Other</a>*@
                 </div>
             </div>
-
-            <b><i><input type="button" style="width:182px" class="button" value="Assets Allocation" onclick="location.href='@Url.Action("Index", "Employee", new { area = ""})';return false;"></i></b> <br />
-            <b><i><input type="button" style="width:182px" class="button" value="Assets List" onclick="location.href='/Home'"></i></b> <br />
+            <br>
+            <b>
+                <i>
+                    @*//@Html.ActionLink("Create", "Create", "Employee", new { Area = "Employee" }, null) <a href="~/CMDB/Hardware.html">abc</a>*@ <!-- <a href="/Views/Employee/Create.cshtml">Create</a> -->
+                    <input type="button" style="width:182px" class="button" value="Assets Allocation" onclick="location.href='@Url.Action("Index", "Employee",new { area=""})'">
+                </i>
+            </b> <br />
+            <b><i><input type="button" style="width:182px" class="button" value="Assets List" onclick="location.href='@Url.Action("AssetSearch", "SearchAsset",new { area=""})';return false;"></i></b> <br />
             <script>
-            /* When the user clicks on the button,
-            toggle between hiding and showing the dropdown content */
-            function toggleDDl() {
-                document.getElementById("assetDDL").classList.toggle("show");
-            }
-
-            // Close the dropdown if the user clicks outside of it
-            window.onclick = function (event) {
-                if (!event.target.matches('.dropbtn')) {
-
-                    var dropdowns = document.getElementsByClassName("dropdownContent");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
+                        /* When the user clicks on the button,
+                        toggle between hiding and showing the dropdown content */
+                        function toggleDDl() {
+                            document.getElementById("assetDDL").classList.toggle("show");
                         }
-                    }
-                }
-            }
+
+                        // Close the dropdown if the user clicks outside of it
+                        window.onclick = function (event) {
+                            if (!event.target.matches('.dropbtn')) {
+
+                                var dropdowns = document.getElementsByClassName("dropdownContent");
+                                var i;
+                                for (i = 0; i < dropdowns.length; i++) {
+                                    var openDropdown = dropdowns[i];
+                                    if (openDropdown.classList.contains('show')) {
+                                        openDropdown.classList.remove('show');
+                                    }
+                                }
+                            }
+                        }
             </script>
-        </div>
-        
-        <div class="col-md-12 container body-content ">
-            @RenderBody()
-
-
-
+            @*<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>*@
         </div>
     </div>
-    <div class="row" style="margin-bottom: 20px;">
-        <footer style="width: 100%;" class="navbar-inverseCss footer1">
-            <h1>
-                <b>
-                    <font color="white">
-                        <center style="font-size:15px;">
-                            <p>&copy; @DateTime.Now.Year - InfiniteWorx Omnichannel Pvt Ltd.</p>
-                        </center>
-                    </font>
-                </b>
-            </h1>
-        </footer>
+    
+    @*<div class="top">
+        <p>Footer</p>
+    </div>*@
+    <div class="container body-content my">
+        @RenderBody()
+        <hr />
+        @*<footer class="navbar background-color">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
+       
     </div>
-
+    @*<div class="footer">
+        <p>Footer</p>
+    </div>*@
+    <div class="navbar navbar-inverse navbar-fixed-bottom hidden-sm` hidden-xs background-color">
+        <div class="container">
+            @*<footer class="navbar background-color">
+                <p>&copy; @DateTime.Now.Year - Infiniteworx Omnichannel Pvt Ltd.</p>
+            </footer>*@
+            <footer class="navbar-inverseCss footer1">
+                <h1>
+                    <b>
+                        <font color="white">
+                            <center style="font-size:15px;">
+                                <p>&copy; @DateTime.Now.Year - Infiniteworx Omnichannel Pvt Ltd.</p>
+                            </center>
+                        </font>
+                    </b>
+                </h1>
+            </footer>
+        </div>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

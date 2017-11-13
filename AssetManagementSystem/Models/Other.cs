@@ -19,13 +19,13 @@ namespace AssetManagementSystem.Models
 
         [DisplayName("Asset Name")]
         [Required(ErrorMessage = "Asset Name is required.")]
-        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
+        [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Enter only alphabets and numbers")]
         [MaxLength(30, ErrorMessage = "Name cannot be longer than 30 characters.")]
         public string assetName { get; set; }
 
         [DisplayName("Short Name")]
         [Required(ErrorMessage = "Short Name is required.")]
-        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
+        //[RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
         [MaxLength(20, ErrorMessage = "Name cannot be longer than 20 characters.")]
         public string shortName { get; set; }
 
@@ -62,9 +62,9 @@ namespace AssetManagementSystem.Models
         //public string licenceKey { get; set; }
 
         [Required(ErrorMessage = "Warranty Period is required.")]
-        [DisplayName("Warranty Period")]
-        [Range(1, 99, ErrorMessage = "Enter minimum 1 digit and Maximum 2 digits")]
-        [RegularExpression(@"^(\d{2})$", ErrorMessage = "Enter Warranty in months i.e.Max two digit ")]
+        [DisplayName("Warranty Period in months")]
+        [Range(0, 99, ErrorMessage = "Enter minimum 1 digit and Maximum 2 digits")]
+     //   [RegularExpression(@"^(\d{2})$", ErrorMessage = "Enter Warranty in months i.e.Max two digit ")]
         public int warrantyPeriod { get; set; }
 
         [Required(ErrorMessage = "Vendor Name is required.")]
@@ -74,13 +74,14 @@ namespace AssetManagementSystem.Models
         public string vendorName { get; set; }
 
         [Required(ErrorMessage = "Vendor Contact is required.")]
-         [RegularExpression(@"^(\d{10})$", ErrorMessage = "Enter Valid Contact Number")]
-      //  [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Entered phone format is not valid.")]
+        [RegularExpression(@"^(((\+){0,1}91|0)(\s){0,1}(\-){0,1}(\s){0,1}){0,1}[7-9][0-9](\s){0,1}(\-){0,1}(\s){0,1}[1-9]{1}[0-9]{7}$", ErrorMessage = "Enter Valid Contact Number")]
+        //  [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Entered phone format is not valid.")]
         [DisplayName("Vendor Contact")]
         public string vendorContact { get; set; }
 
         [Required(ErrorMessage = "Vendor Email is required.")]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
+        //[RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         [DisplayName("Vendor Email")]
         public string vendorEmail { get; set; }
 

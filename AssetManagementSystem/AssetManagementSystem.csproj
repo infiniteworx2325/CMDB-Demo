@@ -158,15 +158,22 @@
     <Compile Include="Areas\Asset\Controllers\SoftwareController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchAssetController.cs" />
+    <Compile Include="DataAccessLayer\AssetListSearchService.cs" />
     <Compile Include="DataAccessLayer\AssetService.cs" />
     <Compile Include="DataAccessLayer\EmployeeService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AllocatedAsstesViewModel.cs" />
     <Compile Include="Models\Asset.cs" />
+    <Compile Include="Models\assetDeallocation.cs" />
     <Compile Include="Models\AssetEmployee.cs" />
     <Compile Include="Models\AssetList.cs" />
+    <Compile Include="Models\AssetSearch.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeConfiguredAssetsAllocation.cs" />
+    <Compile Include="Models\EmployeeView.cs" />
     <Compile Include="Models\Hardware.cs" />
     <Compile Include="Models\Other.cs" />
     <Compile Include="Models\Software.cs" />
@@ -227,7 +234,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -236,6 +243,10 @@
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\Assign.cshtml" />
+    <Content Include="Views\SearchAsset\AssetSearch.cshtml" />
+    <Content Include="Views\Employee\View1.cshtml" />
+    <Content Include="Views\Employee\View.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

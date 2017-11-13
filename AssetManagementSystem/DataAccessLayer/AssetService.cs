@@ -10,6 +10,222 @@ namespace AssetManagementSystem.DataAccessLayer
 {
     public class AssetService
     {
+        public int deleteDeallocatedAssets(assetDeallocation assetDeallocation)
+        {
+            try
+            {
+
+
+                MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection();
+                string connectionstring = "server=127.0.0.1;uid=root;pwd=root;database=cmdb";
+                int result = 0;
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = connectionstring;
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.Connection = conn;
+                conn.Open();
+                foreach (var item in assetDeallocation.selectedAssets)
+                {
+                    cmd.CommandText = "select * from asset where assetId = @assetId and isConfig = 1";
+                    cmd.Parameters.AddWithValue("@assetId", item);
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    if (dataReader.HasRows)
+                    {
+
+                        conn.Close();
+                        conn.Open();
+                        cmd.CommandText = "update configuredassets set isDeleted = 1 where assetId = @assetId;update assetallocation set isDeleted = 1 where assetId = @assetId && srNo = @srNo;update asset set isAssigned = 0,isConfig = 0,configurationGroupNameId =@configurationGroupNameId where assetId =@assetId ";
+                        cmd.Parameters.AddWithValue("@assetId", item);
+                        cmd.Parameters.AddWithValue("@srNo", assetDeallocation.srNo);
+                        cmd.Parameters.AddWithValue("@configurationGroupNameId", string.Empty);
+
+                        result = cmd.ExecuteNonQuery();
+
+                    }
+                    else
+                    {
+                        conn.Close();
+                        conn.Open();
+                        cmd.CommandText = "update asset set isAssigned = 0 where assetId = @assetId;update assetallocation set isDeleted = 1 where assetId = @assetId && srNo = @srNo";
+                        cmd.Parameters.AddWithValue("@assetId", item);
+                        cmd.Parameters.AddWithValue("@srNo", assetDeallocation.srNo);
+                        result = cmd.ExecuteNonQuery();
+
+                    }
+
+                }
+                //cmd.Parameters.AddWithValue("@assetId",)
+                //cmd.Connection = conn;
+
+                conn.Close();
+            }
+            catch (Exception ex) { }
+            return 1;
+            //return null;
+        }
+
+
+
+
+        public List<AllocatedAsstesViewModel> GetAllocatedAssets(int srNo)
+        {
+            List<AllocatedAsstesViewModel> listAllocatedAsstesViewModel = new List<AllocatedAsstesViewModel>();
+            //AllocatedAsstesViewModel objAllocatedAsstesViewModel = new AllocatedAsstesViewModel();
+
+            try
+            {
+
+
+                MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection();
+                string connectionstring = "server=127.0.0.1;uid=root;pwd=root;database=cmdb";
+
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = connectionstring;
+                MySqlCommand cmd = conn.CreateCommand();
+                conn.Open();
+                string query = "select asset.assetid,emp.srNo,emp.empId,emp.empName, asset.assetName " +
+                                "from asset as asset,employee as emp , assetallocation al " +
+                                "where asset.assetid = al.assetid and emp.srNo = al.srNo and asset.isAssigned = 1 and al.isDeleted = 0 and emp.srNo = @srNo";
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@srNo", srNo);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+
+                    AllocatedAsstesViewModel allocatedAsstesViewModel = new AllocatedAsstesViewModel();
+                    allocatedAsstesViewModel.assetId = Convert.ToInt32(dataReader[0]);
+                    allocatedAsstesViewModel.srNo = Convert.ToInt32(dataReader[1]);
+                    allocatedAsstesViewModel.empId = dataReader[2].ToString();
+                    allocatedAsstesViewModel.empName = dataReader[3].ToString();
+                    allocatedAsstesViewModel.assetName = dataReader[4].ToString();
+                    listAllocatedAsstesViewModel.Add(allocatedAsstesViewModel);
+                }
+                conn.Close();
+                return listAllocatedAsstesViewModel;
+            }
+            catch (Exception ex) { }
+            return listAllocatedAsstesViewModel;
+
+        }
+
+
+        public int CreateConfiguration(string configurationGroupNameId, List<int> selectedAssets)
+        {
+            int result = 0;
+            try
+            {
+
+                MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection();
+                string connectionstring = "server=127.0.0.1;uid=root;pwd=root;database=cmdb";
+
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = connectionstring;
+                MySqlCommand cmd = conn.CreateCommand();
+                conn.Open();
+
+                for (int i = 0; i < selectedAssets.Count; i++)
+                {
+                    cmd.CommandText = "INSERT  INTO configuredassets (assetId,configurationGroupNameId,isDeleted) values (@assetId,@configurationGroupNameId,@isDeleted);" +
+                        "UPDATE asset SET isConfig = 1,configurationGroupNameId=@configurationGroupNameId where assetId=@assetId;" +
+                        "UPDATE asset SET isConfig=1 where assetId=@assetId;";
+
+                    cmd.Parameters.AddWithValue("@assetId", selectedAssets[i]);
+                    cmd.Parameters.AddWithValue("@isDeleted", 0);
+                    cmd.Parameters.AddWithValue("@configurationGroupNameId", configurationGroupNameId);
+                    result = cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+
+        }
+
+
+        public int ConfiguredAssetAllocation(ConfiguredAssetEmployee configuredAssetEmployee)
+        {
+            int result = 0;
+            try
+            {
+
+                MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection();
+                string connectionstring = "server=127.0.0.1;uid=root;pwd=root;database=cmdb";
+
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = connectionstring;
+                MySqlCommand cmd = conn.CreateCommand();
+                conn.Open();
+                cmd.CommandText = "INSERT  INTO configurationgroup (configurationGroupName) values (@configurationGroupName);";
+                cmd.Parameters.AddWithValue("@configurationGroupName", "configured assets");
+                result = cmd.ExecuteNonQuery();
+                conn.Close();
+
+                //if (result > 0)
+                //{
+                //    string query = "select top 1 from configurationgroup order by desc";
+                //    cmd.CommandText = query;
+                //    MySqlDataReader dataReader = cmd.ExecuteReader();
+                //    while (dataReader.Read())
+                //    {
+
+                //    }
+                //}
+                return result;
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public string ConfigurationGroupNameId()
+        {
+            string configurationGroupNameId = string.Empty;
+            try
+            {
+
+                //MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection();
+                //string connectionstring = "server=127.0.0.1;uid=root;pwd=root;database=cmdb";
+
+                //conn = new MySql.Data.MySqlClient.MySqlConnection();
+                //conn.ConnectionString = connectionstring;
+                //MySqlCommand cmd = conn.CreateCommand();
+                MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection();
+                string connectionstring = "server=127.0.0.1;uid=root;pwd=root;database=cmdb";
+
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = connectionstring;
+                MySqlCommand cmd = conn.CreateCommand();
+                conn.Open();
+                string query = "SELECT MAX(configurationGroupNameId) FROM configurationgroup";
+                cmd.CommandText = query;
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    configurationGroupNameId = dataReader[0].ToString();
+                }
+                return configurationGroupNameId;
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return "";
+        }
+
+
+
         public int AssetAllocation(int srNo,int assetId)
         {
             //AssetEmployee assetEmployee = new AssetEmployee();
@@ -24,9 +240,11 @@ namespace AssetManagementSystem.DataAccessLayer
                 conn.ConnectionString = connectionstring;
                 MySqlCommand cmd = conn.CreateCommand();
                 conn.Open();
-                cmd.CommandText = "INSERT  INTO assetallocation (assetId,srNo) values (@assetId,@srNo); UPDATE asset set isAssigned = 1 where assetId = @assetId";
+                cmd.CommandText = "INSERT  INTO assetallocation (assetId,srNo,isDeleted) values (@assetId,@srNo,@isDeleted); UPDATE asset set isAssigned = 1 where assetId = @assetId";
                 cmd.Parameters.AddWithValue("@srNo", srNo);
                 cmd.Parameters.AddWithValue("@assetId", assetId);
+                cmd.Parameters.AddWithValue("@isDeleted", 0);
+                cmd.Parameters.AddWithValue("@isActive", 0);
                 result = cmd.ExecuteNonQuery();
                 conn.Close();
                 return result;
@@ -128,7 +346,7 @@ namespace AssetManagementSystem.DataAccessLayer
                     conn.Open();
                     cmd.CommandText = "INSERT INTO asset(assetid,resourceId,assetCode,assetName,shortName,description," +
                         "serialNo,modelNo,softwareVersion,softwareType,licenceClass,licenceNumber,licenceKey," +
-                        "warrantyPeriod,vendorName,vendorContact,vendorEmail,createdDate,isActive,isDeleted,isAssigned) values(@assetid,@resourceId,@assetCode,@assetName,@shortName,@description,@serialNo,@modelNo,@softwareVersion,@softwareType,@licenceClass,@licenceNumber,@licenceKey,@warrantyPeriod,@vendorName,@vendorContact,@vendorEmail,@createdDate,@isActive,@isDeleted,@isAssigned)";
+                        "warrantyPeriod,vendorName,vendorContact,vendorEmail,createdDate,isActive,isDeleted,isAssigned,isConfig,configurationGroupNameId) values(@assetid,@resourceId,@assetCode,@assetName,@shortName,@description,@serialNo,@modelNo,@softwareVersion,@softwareType,@licenceClass,@licenceNumber,@licenceKey,@warrantyPeriod,@vendorName,@vendorContact,@vendorEmail,@createdDate,@isActive,@isDeleted,@isAssigned,@isConfig,@configurationGroupNameId)";
                     cmd.Parameters.AddWithValue("@assetid", hardware.assetId);
                     cmd.Parameters.AddWithValue("@resourceId", hardware.resourceId);
                     cmd.Parameters.AddWithValue("@assetCode", hardware.assetCode);
@@ -150,6 +368,9 @@ namespace AssetManagementSystem.DataAccessLayer
                     cmd.Parameters.AddWithValue("@isActive", 1);
                     cmd.Parameters.AddWithValue("@isDeleted", 0);
                     cmd.Parameters.AddWithValue("@isAssigned", 0);
+                    cmd.Parameters.AddWithValue("@isConfig", 0);
+                    cmd.Parameters.AddWithValue("@configurationGroupNameId",string.Empty);
+
                     result = cmd.ExecuteNonQuery();
 
                     conn.Close();
@@ -375,7 +596,7 @@ namespace AssetManagementSystem.DataAccessLayer
                     conn.Open();
                     cmd.CommandText = "INSERT INTO asset(assetid,resourceId,assetCode,assetName,shortName,description," +
                         "serialNo,modelNo,softwareVersion,softwareType,licenceClass,licenceNumber,licenceKey," +
-                        "warrantyPeriod,vendorName,vendorContact,vendorEmail,createdDate,isActive,isDeleted,isAssigned) values(@assetid,@resourceId,@assetCode,@assetName,@shortName,@description,@serialNo,@modelNo,@softwareVersion,@softwareType,@licenceClass,@licenceNumber,@licenceKey,@warrantyPeriod,@vendorName,@vendorContact,@vendorEmail,@createdDate,@isActive,@isDeleted,@isAssigned)";
+                        "warrantyPeriod,vendorName,vendorContact,vendorEmail,createdDate,isActive,isDeleted,isAssigned,isConfig,configurationGroupNameId) values(@assetid,@resourceId,@assetCode,@assetName,@shortName,@description,@serialNo,@modelNo,@softwareVersion,@softwareType,@licenceClass,@licenceNumber,@licenceKey,@warrantyPeriod,@vendorName,@vendorContact,@vendorEmail,@createdDate,@isActive,@isDeleted,@isAssigned,@isConfig,@configurationGroupNameId)";
                     cmd.Parameters.AddWithValue("@assetid", software.assetId);
                     cmd.Parameters.AddWithValue("@resourceId", software.resourceId);
                     cmd.Parameters.AddWithValue("@assetCode", software.assetCode);
@@ -397,6 +618,8 @@ namespace AssetManagementSystem.DataAccessLayer
                     cmd.Parameters.AddWithValue("@isActive", 1);
                     cmd.Parameters.AddWithValue("@isDeleted", 0);
                     cmd.Parameters.AddWithValue("@isAssigned", 0);
+                    cmd.Parameters.AddWithValue("@isConfig", 0);
+                    cmd.Parameters.AddWithValue("@configurationGroupNameId", string.Empty);
                     result = cmd.ExecuteNonQuery();
 
                     conn.Close();
@@ -439,7 +662,7 @@ namespace AssetManagementSystem.DataAccessLayer
                     softwareAsset.serialNo = Convert.ToString(dataReader[6]);
                     softwareAsset.softwareVersion = Convert.ToString(dataReader[8]);
                     softwareAsset.softwareType = Convert.ToString(dataReader[9]);
-                    softwareAsset.licenceClass = Convert.ToString(dataReader[10]);
+                 //   softwareAsset.licenceClass = Convert.ToString(dataReader[10]);
                     softwareAsset.licenceNumber = Convert.ToString(dataReader[11]);
                     softwareAsset.licenceKey = Convert.ToString(dataReader[12]);
                     softwareAsset.warrantyPeriod = Convert.ToInt32(dataReader[13]);
@@ -568,7 +791,7 @@ namespace AssetManagementSystem.DataAccessLayer
                     softwareAsset.serialNo = Convert.ToString(dataReader[6]);
                     softwareAsset.softwareVersion = Convert.ToString(dataReader[8]);
                     softwareAsset.softwareType = Convert.ToString(dataReader[9]);
-                    softwareAsset.licenceClass = Convert.ToString(dataReader[10]);
+                   // softwareAsset.licenceClass = Convert.ToString(dataReader[10]);
                     softwareAsset.licenceNumber = Convert.ToString(dataReader[11]);
                     softwareAsset.licenceKey = Convert.ToString(dataReader[12]);
                     softwareAsset.warrantyPeriod = Convert.ToInt32(dataReader[13]);
@@ -626,7 +849,7 @@ namespace AssetManagementSystem.DataAccessLayer
                     conn.Open();
                     cmd.CommandText = "INSERT INTO asset(assetid,resourceId,assetCode,assetName,shortName,description," +
                         "serialNo,modelNo,softwareVersion,softwareType,licenceClass,licenceNumber,licenceKey," +
-                        "warrantyPeriod,vendorName,vendorContact,vendorEmail,createdDate,isActive,isDeleted) values(@assetid,@resourceId,@assetCode,@assetName,@shortName,@description,@serialNo,@modelNo,@softwareVersion,@softwareType,@licenceClass,@licenceNumber,@licenceKey,@warrantyPeriod,@vendorName,@vendorContact,@vendorEmail,@createdDate,@isActive,@isDeleted)";
+                        "warrantyPeriod,vendorName,vendorContact,vendorEmail,createdDate,isActive,isDeleted,isAssigned,isConfig,configurationGroupNameId) values(@assetid,@resourceId,@assetCode,@assetName,@shortName,@description,@serialNo,@modelNo,@softwareVersion,@softwareType,@licenceClass,@licenceNumber,@licenceKey,@warrantyPeriod,@vendorName,@vendorContact,@vendorEmail,@createdDate,@isActive,@isDeleted,@isAssigned,@isConfig,@configurationGroupNameId)";
                     cmd.Parameters.AddWithValue("@assetid", other.assetId);
                     cmd.Parameters.AddWithValue("@resourceId", other.resourceId);
                     cmd.Parameters.AddWithValue("@assetCode", other.assetCode);
@@ -648,6 +871,9 @@ namespace AssetManagementSystem.DataAccessLayer
                   
                     cmd.Parameters.AddWithValue("@isActive", 1);
                     cmd.Parameters.AddWithValue("@isDeleted", 0);
+                    cmd.Parameters.AddWithValue("@isConfig", 0);
+                    cmd.Parameters.AddWithValue("@isAssigned", 0);
+                    cmd.Parameters.AddWithValue("@configurationGroupNameId", string.Empty);
                     result = cmd.ExecuteNonQuery();
 
                     conn.Close();

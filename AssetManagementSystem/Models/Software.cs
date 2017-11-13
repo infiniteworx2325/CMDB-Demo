@@ -19,13 +19,13 @@ namespace AssetManagementSystem.Models
 
         [DisplayName("Asset Name")]
         [Required(ErrorMessage = "Asset Name is required.")]
-        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
+        [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Enter only alphabets and numbers")]
         [MaxLength(30, ErrorMessage = "Name cannot be longer than 30 characters.")]
         public string assetName { get; set; }
 
         [DisplayName("Short Name")]
         [Required(ErrorMessage = "Short Name is required.")]
-        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
+        //[RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
         [MaxLength(20, ErrorMessage = "Name cannot be longer than 20 characters.")]
         public string shortName { get; set; }
 
@@ -52,7 +52,8 @@ namespace AssetManagementSystem.Models
 
         [Required(ErrorMessage = "Licence Class is required.")]
         [DisplayName("Licence Class")]
-        public string licenceClass { get; set; }
+        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
+        public LicenceClass licenceClass { get; set; }
 
         [Required(ErrorMessage = "Licence Number is required.")]
         [DisplayName("Licence Number")]
@@ -64,8 +65,8 @@ namespace AssetManagementSystem.Models
 
         [Required(ErrorMessage = "Warranty Period is required.")]
         [DisplayName("Warranty Period")]
-        [RegularExpression(@"^(\d{2})$", ErrorMessage = "Enter Warranty in months i.e.Max two digit ")]
-        [Range(1, 99, ErrorMessage = "Enter minimum 1 digit and Maximum 2 digits")]
+       // [RegularExpression(@"^(\d{2})$", ErrorMessage = "Enter Warranty in months i.e.Max two digit ")]
+        [Range(0, 99, ErrorMessage = "Enter minimum 1 digit and Maximum 2 digits")]
         public int warrantyPeriod { get; set; }
 
         [Required(ErrorMessage = "Vendor Name is required.")]
@@ -75,12 +76,13 @@ namespace AssetManagementSystem.Models
         public string vendorName { get; set; }
 
         [Required(ErrorMessage = "Vendor Contact is required.")]
-        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Enter Valid Contact Number")]
+        [RegularExpression(@"^(((\+){0,1}91|0)(\s){0,1}(\-){0,1}(\s){0,1}){0,1}[7-9][0-9](\s){0,1}(\-){0,1}(\s){0,1}[1-9]{1}[0-9]{7}$", ErrorMessage = "Enter Valid Contact Number")]
         [DisplayName("Vendor Contact")]
         public string vendorContact { get; set; }
 
         [Required(ErrorMessage = "Vendor Email is required.")]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
+        //[RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         [MaxLength(50, ErrorMessage = "Email cannot be longer than 50 characters.")]
         [DisplayName("Vendor Email")]
         public string vendorEmail { get; set; }
@@ -121,7 +123,7 @@ namespace AssetManagementSystem.Models
                 serialNo = string.Empty;
                 softwareVersion = string.Empty;
                 softwareType = string.Empty;
-                licenceClass = string.Empty;
+               // licenceClass = string.Empty;
                 licenceNumber = string.Empty;
                 licenceKey = string.Empty;
                 warrantyPeriod = 0;
@@ -130,5 +132,17 @@ namespace AssetManagementSystem.Models
                 vendorEmail = string.Empty;
                 createdDate = DateTime.Today;
             }
+        public enum LicenceClass
+        {
+            SelectLicenseClass,
+            Properietary_license,
+            GeneralPublicLicense,
+            EndUserLicenseAgreement,
+            WorkstationLicense,
+            ConcurrentUserLicense,
+            SiteLicense,
+            PerpetualLicense,
+            NonperpetualLicense
+        }
     }
 }

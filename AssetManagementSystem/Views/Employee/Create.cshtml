@@ -1,12 +1,37 @@
 ﻿@model AssetManagementSystem.Models.Employee
+<style>
+    @@media only screen and (max-width: 467px) {
+        .form-horizontal {
+            margin-top: 150px;
+            margin-left: 45px !important;
+        }
+        /*@@media only screen and (min-width: 1024px) {
+    .floatForsearch {
+      float:none !important;
+    }*/
+    }
 
+    @@media only screen and (max-width: 768px) {
+        .floatForsearch {
+            float: none !important;
+        }
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .form-horizontal {
+            margin-top: 152px!important;
+            margin-left: 12px !important;
+        }
+    }
+</style>
 @using (Html.BeginForm("Create", "Employee", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     @*<link href="~/Content/style1.css" rel="stylesheet" />*@
     <link href="~/Content/sites.css" rel="stylesheet" />
     <div class="form-horizontal">
-        <h4>Employee</h4>
+        <h4 style="margin-top: 97px;
+    font-weight: bold;">Employee Details</h4>
         <hr margin-bottom ="100px"/>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
@@ -20,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.empId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.empId, new { htmlAttributes = new { @class = "form-control", @maxlength = 8 } })
+                @Html.EditorFor(model => model.empId, new { htmlAttributes = new { @class = "form-control", @maxlength = 10 } })
                 @Html.ValidationMessageFor(model => model.empId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +53,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.empName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.empName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.empName, new { htmlAttributes = new { @class = "form-control",@maxlength=30 } })
                 @Html.ValidationMessageFor(model => model.empName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -52,7 +77,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.emailId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.emailId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.emailId, new { htmlAttributes = new { @class = "form-control", @maxlength = 50 } })
                 @Html.ValidationMessageFor(model => model.emailId, "", new { @class = "text-danger" })
             </div>
         </div>

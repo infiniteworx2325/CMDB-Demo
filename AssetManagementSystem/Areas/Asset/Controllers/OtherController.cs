@@ -29,7 +29,11 @@ namespace AssetManagementSystem.Areas.Asset.Controllers
             {
                 AssetService assetService = new AssetService();
                 int result = assetService.AddOtherAsset(other);
-                ModelState.Clear();
+                if (result > 0)
+                {
+                    ModelState.Clear();
+                    ViewBag.Msg = "Asset saved successfully";
+                }
             }
 
             // return RedirectToAction("Create", "Other");
@@ -65,7 +69,8 @@ namespace AssetManagementSystem.Areas.Asset.Controllers
                     int res = assetService.UpdateOther(other);
                     if (res > 0)
                     {
-                        return RedirectToAction("Others");
+                        ViewBag.Msg = "Data Updated successfully....";
+                        //return RedirectToAction("Others");
                     }
 
                     return View(other);

@@ -1,0 +1,385 @@
+﻿@model IEnumerable<AssetManagementSystem.Models.AssetSearch>
+<link href="~/Content/sites.css" rel="stylesheet" />
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+@*<div style="margin-top">
+    <h2>
+        <h3 style="text-align:center;margin-top:60px;">Lists of all  Assets</h3>
+        <label style="margin-left:760px;float:right;"> Search: <input type="text" id="myInput" onkeyup="filterTable()" placeholder="Search " title="Type in a name"></label>
+
+    </h2>
+</div>*@
+<style>
+    @@media only screen and (max-width: 467px) {
+        .form-horizontal {
+            margin-top: 150px;
+            margin-left: 45px !important;
+        }
+        /*@@media only screen and (min-width: 1024px) {
+    .floatForsearch {
+      float:none !important;
+    }*/
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .floatForsearch {
+            float: none !important;
+        }
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .form-horizontal {
+            margin-top: 144px;
+            margin-left: 9px !important;
+        }
+    }
+</style>
+
+<div class="form-horizontal">
+    <center>
+        <h4 style="font-weight:bold;font-size:20px;">Assets List</h4>
+    </center>
+    <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12"></div>
+        <input type="text" id="myInput" class="col-xs-12 col-sm-12 floatForsearch" onkeyup="filterTable()" placeholder="Search " title="Type in a name" style="float: right;margin-top:25px;" >
+    </div>
+<div style="overflow: scroll;
+    height: 327px;
+    margin-left: 64px;
+    width: 100%;
+    /*margin-top: 71px;*/">
+    <table class="table form-horizontal" style="margin-left: -2px;" id="tblAssetSerach">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.assetId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.assetCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.assetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.shortName)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.description)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.serialNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modelNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.warrantyPeriod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vendorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vendorContact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vendorEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createdDate)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.isActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.isDeleted)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.isconfig)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isAssigned)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.empId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.empName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cubicalNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contactNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.emailId)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            if (item.isAssigned == true || item.isconfig == true)
+            {
+                <tr style="background-color: #FB514B">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.shortName)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.serialNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.modelNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.warrantyPeriod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorContact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.createdDate)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.isActive)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.isDeleted)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isconfig)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isAssigned)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.empId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.empName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cubicalNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.contactNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.emailId)
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>*@
+                </tr>
+
+            }
+            else
+            {
+                <tr style="background-color:lightgreen">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.shortName)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.serialNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.modelNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.warrantyPeriod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorContact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.createdDate)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.isActive)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.isDeleted)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isconfig)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isAssigned)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.empId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.empName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cubicalNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.contactNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.emailId)
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>*@
+                </tr>
+            }
+            @*<tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.assetName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.shortName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.serialNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.modelNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.warrantyPeriod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorContact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vendorEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.createdDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isActive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isDeleted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isconfig)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isAssigned)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.empId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.empName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cubicalNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.contactNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.emailId)
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                </tr>*@
+        }
+
+    </table>
+</div>
+<script>
+
+    function filterTable() {
+        var filter = event.target.value.toUpperCase();
+        var rows = document.querySelector("#tblAssetSerach tbody").rows;
+
+        for (var i = 1; i < rows.length; i++) {
+            var firstCol = rows[i].cells[0].textContent.toUpperCase();
+            var secondCol = rows[i].cells[1].textContent.toUpperCase();
+            var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+            var fourthCol = rows[i].cells[3].textContent.toUpperCase();
+            //var fifthCol = rows[i].cells[4].textContent.toUpperCase();
+            var sixthCol = rows[i].cells[4].textContent.toUpperCase();
+            var seventhCol = rows[i].cells[5].textContent.toUpperCase();
+            var eighthCol = rows[i].cells[6].textContent.toUpperCase();
+            var ninthCol = rows[i].cells[7].textContent.toUpperCase();
+            var tenthCol = rows[i].cells[8].textContent.toUpperCase();
+            var eleventhCol = rows[i].cells[9].textContent.toUpperCase();
+            var twelvethCol = rows[i].cells[10].textContent.toUpperCase();
+            //var thirteenthCol = rows[i].cells[12].textContent.toUpperCase();
+            //var fourteenthCol = rows[i].cells[13].textContent.toUpperCase();
+            var fifteenthCol = rows[i].cells[11].textContent.toUpperCase();
+            var sixteenthCol = rows[i].cells[12].textContent.toUpperCase();
+            var seventeenthCol = rows[i].cells[13].textContent.toUpperCase();
+            var eighteenthCol = rows[i].cells[14].textContent.toUpperCase();
+            var nineteenthCol = rows[i].cells[15].textContent.toUpperCase();
+            var twentiethCol = rows[i].cells[16].textContent.toUpperCase();
+            var twentyfirstCol = rows[i].cells[17].textContent.toUpperCase();
+            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1 || seventhCol.indexOf(filter) > -1 || eighthCol.indexOf(filter) > -1 || ninthCol.indexOf(filter) > -1 || tenthCol.indexOf(filter) > -1 || eleventhCol.indexOf(filter) > -1 || twelvethCol.indexOf(filter) > -1 || fifteenthCol.indexOf(filter) > -1 || sixteenthCol.indexOf(filter) > -1 || seventeenthCol.indexOf(filter) > -1 || eighteenthCol.indexOf(filter) > -1 || nineteenthCol.indexOf(filter) > -1 || twentiethCol.indexOf(filter) > -1 || twentyfirstCol.indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+
+        }
+    }
+
+    document.querySelector('#myInput').addEventListener('keyup', filterTable, false);
+
+
+
+</script>
+

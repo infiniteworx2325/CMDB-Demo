@@ -9,6 +9,20 @@ namespace AssetManagementSystem.Models
 {
     public class Hardware : IValidatableObject
     {
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            if (createdDate > DateTime.Now)
+            {
+                results.Add(new ValidationResult("Please enter valid date", new[] { "createdDate" }));
+            }
+
+            return results;
+        }
+
+
         public int assetId { get; set; }
         public int resourceId { get; set; }
 
@@ -20,7 +34,8 @@ namespace AssetManagementSystem.Models
 
         [DisplayName("Asset Name")]
         //[RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
-         [RegularExpression(@" ^[a - zA - Z] + $", ErrorMessage = "Enter only alphabet")]
+        //[RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
+        [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Enter only alphabets and numbers")]
         [MaxLength(30, ErrorMessage = "Name cannot be longer than 30 characters.")]
         [Required(ErrorMessage = "Asset Name is required.")]
         public string assetName { get; set; }
@@ -28,7 +43,7 @@ namespace AssetManagementSystem.Models
         [DisplayName("Short Name")]
         [Required(ErrorMessage = "Short Name is required.")]
         [MaxLength(20, ErrorMessage = "Name cannot be longer than 20 characters.")]
-        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
+        //[RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use alphabets only")]
         public string shortName { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
@@ -43,6 +58,7 @@ namespace AssetManagementSystem.Models
 
         [Required(ErrorMessage = "ModelNo is required.")]       
         [DisplayName("ModelNo")]
+        [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Enter only alphabets and numbers")]
         public string modelNo { get; set; }
 
         //[Required(ErrorMessage = "Software Version is required.")]
@@ -66,9 +82,8 @@ namespace AssetManagementSystem.Models
         //public string licenceKey { get; set; }
 
         [Required(ErrorMessage = "Warranty Period is required.")]
-        [Range(1, 99, ErrorMessage = "Enter minimum 1 digit and Maximum 2 digits")]
-       
-        //[MaxLength(2)]
+       [Range (0, 99,ErrorMessage = "Enter minimum 1 digit and Maximum 2 digits")]
+       //[MaxLength(2)]
         //[MinLength(1)]
         //[RegularExpression("[^0-9]", ErrorMessage = "Enter Mounth in Number")]
         [DisplayName("Warranty Period")]
@@ -82,11 +97,14 @@ namespace AssetManagementSystem.Models
 
         [Required(ErrorMessage = "Vendor Contact is required.")]
         [DisplayName("Vendor Contact")]
-        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Enter Valid Contact Number")]
+        [RegularExpression(@"^(((\+){0,1}91|0)(\s){0,1}(\-){0,1}(\s){0,1}){0,1}[7-9][0-9](\s){0,1}(\-){0,1}(\s){0,1}[1-9]{1}[0-9]{7}$", ErrorMessage = "Enter Valid Contact Number")]
+        // [RegularExpression(@" ^\d{9}$", ErrorMessage = "Enter Valid Contact Number")]
+
         public string vendorContact { get; set; }
 
         [Required(ErrorMessage = "Vendor Email is required.")]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
+        // [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         [MaxLength(50, ErrorMessage = "Email cannot be longer than 50 characters.")]
         [DisplayName("Vendor Email")]
         public string vendorEmail { get; set; }
@@ -97,18 +115,7 @@ namespace AssetManagementSystem.Models
         [Required(ErrorMessage = "Created date is required.")]
         public DateTime createdDate { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            List<ValidationResult> results = new List<ValidationResult>();
-
-            if (createdDate > DateTime.Now)
-            {
-                results.Add(new ValidationResult("Please enter valid date", new[] { "createdDate" }));
-            }
-
-            return results;
-        }
-
+        
 
         public bool isActive { get; set; }
         public bool isDeleted { get; set; }

@@ -4,58 +4,92 @@
     ViewBag.Title = "GetAsset";
 }
 
-<h2>Hardware List</h2>
+@*<h2>Hardware List</h2>*@
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 
 <link href="~/Content/sites.css" rel="stylesheet" />
-<input type="radio" id="radioStandalone" name="radioGroup" class="button-css" value="Standalone" style="margin-top:25px;"  /> Standalone
-<input type="radio" id="radioConfiguration" name="radioGroup" class="button-css"  value="Configuration" style="margin-top:5px;"  /> Configuration
+<div class="row">
+    <div class="col-md-5"></div><div class="col-md-5">
+        <h3><b>Assign Assets</b></h3>
+    </div><div class="col-md-1"></div>
 
-<div id="assetList">
+</div>
+<div class="row">
+    <div class="col-md-5"></div><div class="col-md-5"><input type="radio" id="radioStandalone" name="radioGroup" class="button-css" value="Standalone" style="margin-top:25px;" /> Standalone
+<input type="radio" id="radioConfiguration" name="radioGroup" class="button-css" value="Configuration" style="margin-top:5px;" /> Configuration</div><div class="col-md-1"></div>
+    
+</div>
+<hr />
+<div class="row" >
+    <div class="col-md-5"> </div><div class="col-md-2">
+        <div id="">
+            <div><b>Asset Name</b></div>
+           
+        </div>
+    </div><div class="col-md-1"> <div><b>Serial No.</b></div></div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-5"> </div><div class="col-md-4"><div id="assetList">
     <div></div>
+</div> </div><div class="col-md-1"> </div>
 </div>
-<div id="divSave" style="display:none">
-    <input type="button" value="Save" id="btnSave"/>
+<div class="row">
+    <div class="col-md-5"></div><div class="col-md-5"><div id="divSave" style="display:none;margin-left: 100px;
+    margin-top: 20px; ">
+    <input type="button" value="Assign" id="btnSave" />
+</div></div><div class="col-md-1"></div>
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
 <script>
     $(document).ready(function () {
 
-        //$('#divSave').css('display', 'none');
         $('input[name="radioGroup"]').change(function () {
-           // console.log($('input[name="radioGroup"]').val()); 
+            //console.log();
 
             $.ajax({
                 type: "GET",
-                url: '/Employee/GetAssetList',
+                //url: '/Employee/GetAssetList',
+                url:'@Url.Action("GetAssetList", "Employee")',
                 async: true,
                 data: { srNo: @TempData["srNo"]},
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
                     if ($('input[name="radioGroup"]:checked').val() == "Standalone") {
+                        $('#configSave').attr('id', 'btnSave');
+                        $('#assetList').empty();
+                        var tblTag = '<table>';
                         console.log("radio created");
+                        $('#assetList').html('<table style="border: 1px solid black;">');
                         for (i = 0; i < data.length; i++) {
-
-                            var radioBtn = $('<input type="radio" class="rbtnAsset" name="rbtnAsset" value=' + data[i].assetId + ' />' + data[i].assetName + '<br />');
+                            
+                            //tblTag.prependTo('#assetList');
+                            var radioBtn = $('<tr><td><input type="radio" style="margin-right:5px;" class="rbtnAsset" name="rbtnAsset" value=' + data[i].assetId + ' /><td>' + data[i].assetName + '</td>'+'<td> <span style="margin-left:110px;">' + data[i].serialNo + '</span>' + '</td><br />');
                             radioBtn.prependTo('#assetList');
-                            //console.log(";;;;;;;" + data[i].assetId);
                             $('#divSave').show();
                         }
-                    } else if ($('input[name="radioGroup"]:checked').val() == "Configuration"){
-                        console.log("checkbox created");
-                        
-                        var radioReplace = $(".rbtnAsset");
-                        radioReplace.replaceWith('<input type="checkbox" name="" />');
-                        $('input[type=radio][name=rbtnAsset]').remove();
-                        //var radioRemove = $(".rbtnAsset");
-                        //radioRemove.remove();
+                        $('#assetList').append('</table>');
 
-                       
+
+                    } else if ($('input[name="radioGroup"]:checked').val() == "Configuration") {
+
+                        $('#btnSave').attr('id', 'configSave');
+                        console.log("checkbox created");
+
+                        $('#assetList').empty();
+                        for (i = 0; i < data.length; i++) {
+                            if (data[i].resourceId == 1 || data[i].resourceId == 2){
+                                var radioBtn = $('<tr><td><input type="checkbox" style="margin-right:5px;" class="rbtnAsset" name="assetCheckbox" value=' + data[i].assetId + ' /><td>' + data[i].assetName + '</td>' + '<td> <span style="margin-left:110px;">' + data[i].serialNo + '</span>' + '</td><br />');
+                            radioBtn.prependTo('#assetList');
+                            $('#divSave').show();
+                            }
+                        }
                     }
-                   
-                    
 
                 },
                 error: function (xhr) {
@@ -64,16 +98,17 @@
             });
         });
 
-
         $('#btnSave').click(function () {
-            var assetId = $("input[name='rbtnAsset']:checked").val();
+            if ($('input[name="radioGroup"]:checked').val() == "Standalone") {
+                var assetId = $("input[name='rbtnAsset']:checked").val();
             //alert($("input:radio[name='rbtnAsset']:checked").val());
             var assetEmployee = {};
             assetEmployee.assetId = $("input[name='rbtnAsset']:checked").val();
             assetEmployee.srNo=@TempData["srNo"];
             $.ajax({
                 type: "POST",
-                url: '/Employee/AssignStandaloneAsset',
+                //url: '/Employee/AssignStandaloneAsset',
+                 url:'@Url.Action("AssignStandaloneAsset", "Employee")',
                 async: true,
                 data: JSON.stringify(assetEmployee),
                 //data: { assetEmployee: assetEmployee},
@@ -83,25 +118,78 @@
 
                     alert(data.responseText)
                     console.log("//" + data);
-                    window.location = "/Employee/Index";
-
+                    //window.location = "/Employee/Index";
+                    window.location = '@Url.Action("Index", "Employee")';
 
                 },
                 error: function (xhr) {
                     alert('error');
                 }
             });
+            } else {
+                     console.log("configuration save clicked");
+                     var selectedAssets = [];
+                     $.each($("input[name='assetCheckbox']:checked"), function () {
+                         selectedAssets.push($(this).val());
+                         console.log(selectedAssets);
+                     });
+                     if (selectedAssets.length <= 1) {
+                         alert("Select multiple assets for configuration or for single entry go to standalone");
+                     } else {
+                             var configuredAssetEmployee = {};
+                             configuredAssetEmployee.srNo =@TempData["srNo"];
+                             configuredAssetEmployee.selectedAssets = selectedAssets;
+
+                             $.ajax({
+                                 type: "POST",
+                                 //url: '/Employee/AssignConfiuredAsset',
+                                  url:'@Url.Action("AssignConfiuredAsset", "Employee")',
+                                 async: true,
+                                 @*data: { srNo : @TempData["srNo"],selectedAssets : JSON.stringify(selectedAssets)},*@
+                                 //data: { assetEmployee: assetEmployee},
+                                 data: JSON.stringify(configuredAssetEmployee),
+                                 contentType: "application/json; charset=utf-8",
+                                 dataType: "json",
+                                 success: function (data) {
+
+                                     alert(data.responseText)
+                                     console.log("//" + data);
+                                     //window.location = "/Employee/Index";
+                                     window.location = '@Url.Action("Index", "Employee")';
+
+                                 },
+                                 error: function (xhr) {
+                                     alert('error');
+                                 }
+                             });
+                     }
+            }
+
+
+
+
+
+
+
         });
 
+        //$("#configSave").click(function () {
+        //    console.log("configuration save clicked");
+        //    var selectedAssets = [];
+        //    $.each($("input[name='assetCheckbox']:checked"), function () {
+        //        selectedAssets.push($(this).val());
+        //    });
+        //    console.log("My favourite sports are: " + selectedAssets.join(", "));
 
 
 
-        //$('#radioConfiguration').click(function () {
-        //    var radioReplace = $(".rbtnAsset");
-        //     radioReplace.replaceWith('<input type="checkbox" name="" />'); 
-        //    //radioRemove.remove();+ checkbox.attr('name') + '" value="' + checkbox.attr('value') + 
+
         //});
 
+        $('#configSave').click(function () {
+            console.log(this.val());
+            console.log("configuration save button clicked");
+        });
 
 
 

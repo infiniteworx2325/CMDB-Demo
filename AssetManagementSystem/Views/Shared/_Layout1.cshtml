@@ -1,0 +1,470 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <style>
+        .navbar-inverseCss {
+            background-color: #69aad8 !important;
+            border-color: #69aad8 !important;
+        }
+
+        .footer1 {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 70px;
+            margin-bottom: 0px;
+        }
+
+        .leftDivAlign {
+            position: fixed;
+            left: 0px;
+            right: 0px;
+            height: 70px;
+            margin-bottom: 0px;
+        }
+
+        .dropbtn {
+            background-color: #2cc4d4;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #2cc4d4;
+            border: 1px;
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #2cc4d4;
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdownContent {
+            display: none;
+            position: absolute;
+            margin-top: -50px;
+            margin-left: 186px;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdownContent a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #2cc4d4;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .button {
+            background-color: #2cc4d4;
+            border: 1px;
+            border-radius: 5px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        /*@@media screen and (min-width: 1024px)
+        {
+            myNewDivHeight {
+                height: 250px;
+            }
+        }*/
+        @@media screen and (min-width: 360px) and (max-width: 640px) {
+            .comapanyNameDiv {
+                width: 30% !important;
+                color: white !important;
+                font-weight: bold !important;
+                font-size: 15px !important;
+            }
+
+            #sidebar {
+                display: none;
+            }
+
+
+            .comapanyNameLogo {
+                margin-left: -30px !important;
+                width: 195px !important;
+            }
+
+            .leftDivAlign {
+                margin-left: 50px !important;
+                width: 100% !important;
+                height: 50px !important;
+            }
+
+            .table {
+                width: 100% !important;
+                margin-left: -2px !important;
+            }
+
+            .empmain {
+                margin-left: 153px !important;
+            }
+
+            .body-content {
+                margin-top: 118px !important;
+            }
+
+            .navbar-inverseCss footer1 {
+                position: fixed;
+                bottom: 0px;
+                height: 77px;
+            }
+        }
+
+        @@media screen and (max-width: 640px) and (min-width: 360px) {
+            .comapanyNameDiv {
+                width: 30% !important;
+                color: white !important;
+                font-weight: bold !important;
+                font-size: 15px !important;
+            }
+
+
+            .comapanyNameLogo {
+                margin-left: -30px !important;
+                width: 195px !important;
+            }
+
+            .leftDivAlign {
+                margin-left: 50px !important;
+            }
+
+            .navbar-inverseCss footer1 {
+                position: fixed;
+                bottom: 0px;
+                height: 77px;
+            }
+        }
+
+
+
+
+        @@media screen and (min-width: 320px) and (max-width: 568px) {
+            .comapanyNameDiv {
+                width: 30% !important;
+                color: white !important;
+                font-weight: bold !important;
+                font-size: 15px !important;
+            }
+
+
+            .comapanyNameLogo {
+                margin-left: -28px !important;
+                width: 195px !important;
+            }
+
+            .leftDivAlign {
+                margin-left: -9px !important;
+                margin-top: 181px !important;
+                width: 207px !important;
+            }
+
+            #sidebar {
+                display: none;
+            }
+
+            .navbar-inverseCss footer1 {
+                position: fixed;
+                bottom: 0px;
+                height: 77px;
+            }
+        }
+
+        @@media screen and (max-width: 568px) {
+            .comapanyNameDiv {
+                width: 30% !important;
+                color: white !important;
+                font-weight: bold !important;
+                font-size: 15px !important;
+                margin-left: 111px !important;
+            }
+
+
+            .comapanyNameLogo {
+                margin-left: -28px !important;
+                width: 125px !important;
+            }
+
+            .leftDivAlign {
+                margin-left: -9px !important;
+                margin-top: 79px !important;
+                width: 207px !important;
+            }
+
+            .navbar-inverseCss footer1 {
+                position: fixed;
+                bottom: 0px;
+                height: 77px;
+            }
+        }
+
+
+        @@media screen and (min-width: 640px) {
+            .comapanyNameDiv {
+                width: 100% !important;
+            }
+
+            .comapanyNameDiv {
+                width: -5% !important;
+                color: white !important;
+                font-weight: bold !important;
+                font-size: 15px !important;
+                /* font-weight: bold !important; */
+                margin-left: 68px !important;
+            }
+
+            .comapanyNameLogo {
+                margin-left: -28px !important;
+                width: 195px !important;
+            }
+
+            .leftDivAlign {
+                margin-left: -8px !important;
+                margin-top: 74px !important;
+                width: 209px !important;
+            }
+
+            .navbar-inverseCss footer1 {
+                position: fixed !important;
+                bottom: 0px !important;
+                height: 101px !important;
+                margin-bottom: 0px !important;
+            }
+        }
+
+        @@media screen and (min-width: 1024px) {
+            /*.comapanyNameDiv {
+                width: 84% !important;
+                font-size: 23px !important;
+            }*/
+            .comapanyNameDiv {
+                width: 78% !important;
+                color: white !important;
+                font-weight: bold !important;
+                font-size: 23px !important;
+                margin-top: 10px;
+                margin-left: 50px !important;
+            }
+
+            .comapanyNameLogo {
+                margin-left: -29px !important;
+                width: 212px !important;
+            }
+
+            .leftDivAlign {
+                margin-left: -1px !important;
+                margin-top: 73px !important;
+                width: 218px !important;
+                height: 100% !important;
+                padding-top: 15px;
+                font-size: 18px;
+            }
+
+
+
+
+
+
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        .navbar-inverseCss footer1 {
+            position: fixed !important;
+            bottom: 0px !important;
+            height: 101px !important;
+            margin-bottom: 0px !important;
+        }
+
+        .button {
+            width: 182px;
+            margin: 3px;
+        }
+
+        }
+
+        @@media screen and (min-width: 720px) and (max-width: 1280px) {
+            .comapanyNameLogo {
+                margin-left: -28px !important;
+                width: 212px !important;
+            }
+        }
+
+        @@media screen and (min-width: 768px) and (max-width: 1366px) {
+            .comapanyNameLogo {
+                margin-left: -55px !important;
+                width: 212px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-inverseCss">
+
+        <div class="container col-md-12 col-lg-11 col-sm-12 col-xs-12">
+            @*<span style="background-color: #69aad8 !important;font-size:25px;margin-right: 22px;margin-left: 2px;">Asset Managment system</span>*@
+        <div class="row col-md-2 col-lg-2 col-sm-2 col-xs-2" style="margin-left:5px">
+
+            <img src="~/images/Logo.PNG" class="comapanyNameLogo" style="height:110px ;margin-top: 6px;
+    /* margin-right: 3px; */
+        /*margin-left: -28px;*/    margin-bottom: 7px;    width: 203px;
+" />
+        </div>
+            <h1 class="text">
+
+                <center>
+                    Assets Management System
+                </center>
+
+
+            </h1>
+        
+    </div>
+</div>
+<div class="row ">
+
+
+
+
+    <!-- Write your comments here -->
+
+
+
+    <div>
+
+
+        <div class="sidebar w3-bar-block w3-border-right" id="mySidebar">
+
+            <div class="col-md-2 leftDivAlign" style="float:left;height:550px;width:220px;margin-top:74px;background-color:#e2eae7 ">
+                <button class="menuButton w3-teal w3-xlarge visible-sm visible-xs" id="menuButton" style="background-color:#2cc4d4; color:black;margin-left: 10px;margin-top: 15px;" onclick="menuOpen()">☰</button>
+                <div id="sidebar">
+
+
+                    @*<button onclick="w3_close()" style="color:black; margin-top: 10px" class="w3-bar-item w3-large visible-xs visible-sm">Close &times;</button><br>*@
+
+
+                    <div class="dropdown">
+                        <b><i><input type="button" style="width:182px;margin-top: 12px;" onclick="toggleDDl()" class="dropbtn" value="Assets Entries"></i></b> <br />
+                        <div id="assetDDL" class="dropdownContent">
+
+                            @Html.ActionLink("Hardware", "Hardwares", "Hardware", new { Area = "Asset" }, null) 
+                            @Html.ActionLink("Software", "Softwares", "Software", new { Area = "Asset" }, null)
+                            @Html.ActionLink("Other", "Others", "Other", new { Area = "Asset" }, null)
+                        </div>
+                    </div>
+                    <br>
+                    <b>
+                        <i>
+                            @*//@Html.ActionLink("Create", "Create", "Employee", new { Area = "Employee" }, null) <a href="~/CMDB/Hardware.html">abc</a>*@ <!-- <a href="/Views/Employee/Create.cshtml">Create</a> -->
+                            <input type="button" style="width:182px" class="button" value="Assets Allocation" onclick="location.href='@Url.Action("Index", "Employee")'">
+                        </i>
+                    </b> <br />
+                    @*@Html.ActionLink("Create", "Create", new { Area = "Asset" }, null)                    <a href="Create">Software</a>*@
+                    <b><i><input type="button" style="width:182px" class="button" value="Assets List" onclick="location.href='@Url.Action("AssetSearch", "SearchAsset")';return false;"></i></b> <br />                    <script>
+                        /* When the user clicks on the button,
+                        toggle between hiding and showing the dropdown content */
+                        function toggleDDl() {
+                            document.getElementById("assetDDL").classList.toggle("show");
+                        }
+
+                        // Close the dropdown if the user clicks outside of it
+                        window.onclick = function (event) {
+                            if (!event.target.matches('.dropbtn')) {
+
+                                var dropdowns = document.getElementsByClassName("dropdownContent");
+                                var i;
+                                for (i = 0; i < dropdowns.length; i++) {
+                                    var openDropdown = dropdowns[i];
+                                    if (openDropdown.classList.contains('show')) {
+                                        openDropdown.classList.remove('show');
+                                    }
+                                }
+                            }
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    @*<div class="w3-teal">
+            <button class="w3-button w3-teal w3-xlarge visible-sm visible-xs" style="color: #2cc4d4;margin-left: 17px;margin-top: 93px;" onclick="w3_open()">☰</button>
+
+        </div>*@
+    <div class="col-md-12 container body-content ">
+
+        @RenderBody()
+    </div>
+</div>
+<div class="row">
+    <footer style="width: 100%;" class="navbar-inverseCss footer1">
+        <h1>
+            <b>
+                <font color="white">
+                    <center style="font-size:15px;">
+                        <p>&copy; @DateTime.Now.Year - Infiniteworx Omnichannel Pvt Ltd.</p>
+                    </center>
+                </font>
+            </b>
+        </h1>
+    </footer>
+</div>
+<script>
+                        function menuOpen() {
+                            var x = document.getElementById("sidebar");
+
+                            if (x.style.display == "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+</script>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</body>
+</html>
