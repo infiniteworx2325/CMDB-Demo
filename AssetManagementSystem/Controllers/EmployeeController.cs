@@ -11,7 +11,7 @@ namespace AssetManagementSystem.Controllers
 {
     public class EmployeeController : Controller
     {
-        // GET: Employee
+        // GET: Employee jlfhbuiofdngbfdjklgjfdigjfdg
         //public ActionResult Index()
         //{
         //    return View();
