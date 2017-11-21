@@ -14,7 +14,8 @@ namespace AssetManagementSystem.Controllers
         // GET: Employee jlfhbuiofdngbfdjklgjfdigjfdg
         //public ActionResult Index()
         //{
-        //    return View();
+         // Error Occured 
+        //return View();
         //}
         [HttpGet]
         public ActionResult Assign(int srNo)
