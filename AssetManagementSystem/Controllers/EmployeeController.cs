@@ -15,6 +15,7 @@ namespace AssetManagementSystem.Controllers
         //public ActionResult Index()
         //{
         //    return View();
+        //extra
         //}
         [HttpGet]
         public ActionResult Assign(int srNo)
