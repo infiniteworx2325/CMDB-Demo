@@ -10,6 +10,7 @@ namespace AssetManagementSystem.Controllers
     {
         public ActionResult Index()
         {
+            //Hellooo
             return View();
         }
 
